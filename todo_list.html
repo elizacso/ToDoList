@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>To do List</title>
+    <script type="text/javascript">
+
+        var tarefas = ["Dentista 30/11", "Cardiologista 01/11"]
+
+        function listarTarefa(position) {
+            if (tarefas[position] == undefined) {
+                alert("Tarefa não encontrada")
+            } else {
+                alert(tarefas[position])
+            }
+
+        }
+
+        function listarTarefas() {
+
+            let strTarefas = "";
+            if (tarefas.length == 0) {
+                alert("Nenhuma tarefa cadastrada ainda.")
+            } else {
+                tarefas.forEach((tarefa, idx) => { strTarefas = strTarefas + idx + " - " + tarefa + "\n" });
+                alert(strTarefas)
+            }
+        }
+
+        function removerTarefa(position) {
+            try {
+                tarefas.splice(position, 1)
+            } catch (e) {
+                console.log(e)
+            }
+        }
+
+        function editarTarefa(position) {
+            let novaDescricao = prompt(`
+Informe a nova descrição da tarefa
+ou ESC para cancelar
+        `);
+
+            if (!novaDescricao) {
+                alert("Operação cancelada");
+            } else {
+
+                try {
+                    tarefas[position] = novaDescricao;
+                } catch (e) {
+                    console.log(e)
+                }
+            }
+        }
+
+        function menuPrincipal() {
+            let opcao = null;
+            while (true) {
+
+
+                opcao = prompt(`MENU PRINCIPAL
+----------------------
+1 - Adicionar tarefas
+2 - Listar tarefas
+3 - Exibir uma tarefa
+4 - Remover uma tarefa
+5 - Editar uma tarefa
+
+Selecione uma das opções disponíveis, ou ESC para sair.
+                `);
+
+                if (!opcao) {
+                    alert("A aplicação foi encerrada.");
+                    break;
+                }
+
+                switch (opcao) {
+                    case "1":
+                        subMenuCadastrarTarefa();
+                        break;
+                    case "2":
+                        listarTarefas();
+                        break;
+                    case "3":
+                        subMenuListarTarefa();
+                        break;
+                    case "4":
+                        subMenuRemoverTarefa();
+                        break;
+                    case "5":
+                        subMenuEditarTarefa();
+                        break;
+                    default:
+                        alert("Opção inválida")
+
+                }
+            }
+
+        }
+
+        function subMenuCadastrarTarefa() {
+            while (true) {
+
+
+                let tarefa = prompt(`SUBMENU CADASTRAR TAREFAS
+--------------------------                    
+Informe a descrição da tarefa
+ou ESC para voltar ao menu anterior.`
+                );
+
+                if (!tarefa) {
+                    alert("Operação cancelada\nRetornando ao menu anterior");
+                    break;
+                }
+                tarefas.push(tarefa)
+                alert("Tarefa cadastrada.")
+            }
+        }
+
+
+        function subMenuListarTarefa() {
+            let position = null;
+            while (true) {
+                position = prompt(`SUBMENU LISTAR TAREFAS
+----------------------
+Informe o índice da tarefa a ser exibida
+ou ESC para sair`)
+
+                if (!position) {
+                    alert("Operação cancelada\nRetornando ao menu anterior");
+                    break;
+                }
+
+                listarTarefa(position);
+            }
+        }
+
+        function subMenuRemoverTarefa() {
+            let position = null;
+            while (true) {
+
+
+                listarTarefas()
+
+                position = prompt(`
+SUBMENU REMOVER TAREFAS
+-----------------------
+
+Informe o índice do item a ser removido
+ou ESC para sair
+                `)
+
+                if (!position) {
+                    alert("Operação cancelada\nRetornando ao menu anterior");
+                    break;
+                }
+
+                if (tarefas[position] == undefined) {
+                    alert("Tarefa não encontrada")
+                } else {
+                    removerTarefa(position);
+                }
+
+
+            }
+
+        }
+
+        function subMenuEditarTarefa() {
+            let position = null;
+            while (true) {
+
+
+                listarTarefas()
+                position = prompt(`
+SUBMENU EDITAR TAREFAS
+-----------------------
+
+Informe o índice do item a ser editado,
+ou ESC para sair
+                `)
+
+                if (!position) {
+                    alert("Operação cancelada");
+                    break;
+                }
+                editarTarefa(position);
+            }
+        }
+        menuPrincipal()
+    </script>
+</head>
+
+<body>
+
+</body>
+
+</html>
